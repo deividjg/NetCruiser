@@ -2,9 +2,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.david.netcruiser.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/atras"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="atras"
+        android:icon="@android:drawable/ic_media_previous"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/adelante"
+        android:orderInCategory="100"
+        android:title="adelante"
+        android:icon="@android:drawable/ic_media_next"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/home"
+        android:orderInCategory="100"
+        android:title="home"
+        android:icon="@drawable/home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/recargar"
+        android:orderInCategory="100"
+        android:title="recargar"
+        android:icon="@android:drawable/ic_menu_rotate"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/agregarFavorito"
+        android:orderInCategory="100"
+        android:title="favoritos"
+        android:icon="@android:drawable/star_big_on"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/gestionarFavoritos"
+        android:orderInCategory="100"
+        android:title="opciones"
+        android:icon="@android:drawable/ic_menu_myplaces"
         app:showAsAction="always" />
 </menu>

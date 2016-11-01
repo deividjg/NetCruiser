@@ -1,9 +1,8 @@
 package com.example.david.netcruiser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -22,10 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
     private WebView wv;
     private AutoCompleteTextView autocompleteTV;
-    private BDHistorial bd;
+    private BDNavegador bd;
     private String[] historial;
     private ArrayAdapter aa;
     private ProgressBar pb;
+    private String favorito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         autocompleteTV = (AutoCompleteTextView) findViewById(R.id.autocompleteTV);
         wv = (WebView)findViewById(R.id.wv);
-        bd = new BDHistorial(this); //también puedo poener getApplicationContext().
+        bd = new BDNavegador(this); //también puedo poner getApplicationContext().
         pb = (ProgressBar)findViewById(R.id.progressBar);
+        favorito = null;
 
         actualizaHistorial();
 
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             private int progress;
 
             public void setProgress(int progress) {
-
                 this.progress = progress;
             }
 
@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        lanzaFavorito();
+        wv.loadUrl("https://duckduckgo.com/");
+        autocompleteTV.setText("duckduckgo.com");
     }
 
     @Override
@@ -93,11 +97,32 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.atras) {
+            wv.goBack();
+        }
+        if (id == R.id.adelante) {
+            wv.goForward();
+        }
+        if (id == R.id.recargar) {
+            wv.reload();
+        }
+        if (id == R.id.home) {
+            wv.loadUrl("https://duckduckgo.com");
+            autocompleteTV.setText("duckduckgo.com");
+            ocultaTeclado();
+        }
+        if (id == R.id.gestionarFavoritos) {
+            verFavoritos();
+        }
+        if (id == R.id.agregarFavorito) {
+            String url = autocompleteTV.getText().toString();
+            if(bd.compruebaFavorito(url) == false && !url.equals("")){
+                bd.insertarFavorito(url);
+            }
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     public void botonNavega(View view){
@@ -116,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         ocultaTeclado();
 
         if(bd.compruebaUrl(url) == false && !url.equals("")){
-            bd.insertar(url);
+            bd.insertarURL(url);
             actualizaHistorial();
         }
     }
@@ -143,4 +168,25 @@ public class MainActivity extends AppCompatActivity {
         aa = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, obtenerHistorial());
         autocompleteTV.setAdapter(aa);
     }
+
+    public void verFavoritos() {
+        Intent i = new Intent(this, Favoritos.class);
+        startActivity(i);
+    }
+
+    public void lanzaFavorito(){
+        favorito = getIntent().getStringExtra("url");
+
+        if(favorito != null){
+            if(formatoUrl(favorito)){
+                wv.loadUrl(favorito);
+            }else{
+                wv.loadUrl("http://" + favorito);
+            }
+            autocompleteTV.setText(favorito);
+            wv.requestFocus();
+            ocultaTeclado();
+        }
+    }
+
 }
