@@ -77,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        lanzaFavorito();
         wv.loadUrl("https://duckduckgo.com/");
         autocompleteTV.setText("duckduckgo.com");
+        lanzaFavorito();
+        wv.requestFocus();
+        ocultaTeclado();
     }
 
     @Override

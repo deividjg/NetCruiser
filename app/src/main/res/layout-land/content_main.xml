@@ -18,19 +18,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:weightSum="1">
 
             <AutoCompleteTextView
                 android:layout_width="295dp"
                 android:layout_height="match_parent"
                 android:id="@+id/autocompleteTV"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/ibNavega" />
+                android:layout_toStartOf="@+id/ibNavega"
+                android:layout_weight="1.00" />
 
             <ImageButton
                 app:srcCompat="@drawable/go"
@@ -52,8 +55,9 @@
 
         <WebView
             android:layout_width="match_parent"
-            android:layout_height="412dp"
-            android:id="@+id/wv" />
+            android:layout_height="152dp"
+            android:id="@+id/wv"
+            android:layout_weight="2.46" />
 
     </LinearLayout>
 

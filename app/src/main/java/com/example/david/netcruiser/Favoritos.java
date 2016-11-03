@@ -44,4 +44,9 @@ public class Favoritos extends AppCompatActivity {
         startActivity(i);
     }
 
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
+
 }
