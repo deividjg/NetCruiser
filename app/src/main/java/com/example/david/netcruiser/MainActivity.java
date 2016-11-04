@@ -101,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.atras) {
             wv.goBack();
+            autocompleteTV.setText(wv.getUrl());
         }
         if (id == R.id.adelante) {
             wv.goForward();
+            autocompleteTV.setText(wv.getUrl());
         }
         if (id == R.id.recargar) {
             wv.reload();
